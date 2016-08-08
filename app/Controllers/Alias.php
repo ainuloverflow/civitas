@@ -37,7 +37,7 @@ class Alias
 
             'ganti-password-civitas' => [
                 'class' => '\\Controllers\Home',
-                'method' => 'ganti-password-hotspot'
+                'method' => 'ganti_password_hotspot'
             ],
 
         ];

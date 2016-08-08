@@ -149,28 +149,44 @@ class Home extends Resources\Controller
         $this->output('paduan');
     }
 
-    public function ubah_sandi_hotspot() {
+    public function ganti_password_hotspot() {
         $ceklogin = $this->session->getValue('isLogin');
         $id = $this->session->getValue('id');
         $name = $this->session->getValue('name');
         $username = $this->session->getValue('username');
 
         if($username && $ceklogin == true) {
-            $data = array(
-                'uname' => $this->session->getValue('username'),
-                'validasi' => $this->validasi
-            );
-              $this->output('edit_password', $data);
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $password = $this->post->POST('password', FILTER_SANITIZE_MAGIC_QUOTES);
+                $konfimasi_password = $this->post->POST('konfirmasi_password', FILTER_SANITIZE_MAGIC_QUOTES);    
+                
+                $value = array ( 'password'=>md5($password));
+                $where = array ( 'id' => $id );
+                
+                $update_password_hotspot = $this->civitas->update_password_hotspot($value, $where);
+               
+                if($update_password_hotspot) {
+                    echo "<script>alert('Password Hotspot berhasil di ubah'); window.location = 'edit-password-hotspot' </script>";
+                }
+                else {
+                    echo "<script>alert('Password Hotspot gagal di ubah'); window.location = 'edit-password-hotspot' </script>";
+                }
+            }
         }
         else {
-            $this->redirect('home');
+            $this->redirect('login');
         }
         
         $data = array (
-            'titlebar' => 'Selamat datang di Web Civitas',
-            'url' => $this->uri->baseUri
+            'validasi' => $this->validasi,
+            'url'  => $this->uri->baseUri,
+            'titlebar' => 'Selamat Datang di Web Civitas JTIF',
+            'navbar' => 'Ganti Password Hotpot',
+            'name' => $name,
+            'username' => $username,
+            'kontentitle' => 'Ganti Password Hotspot'     
         );
-        $this->output('views_login_civitas', $data);
+        $this->output('views_edit_password_hotspot', $data);
     }
 
     public function sandibaru() {

@@ -34,7 +34,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><span> <?php echo $name;?> (<?php echo $username;?>);?> </span> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><span> <?php echo $name;?> (<?php echo $username;?>) </span> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $url;?>logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -49,7 +49,18 @@
              <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
+                        <li>
+                            <a href="<?php echo $url;?>beranda-civitas"><i class="fa fa-dashboard fa-fw"></i> Beranda</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $url;?>edit-profil-civitas"><i class="fa fa-user fa-fw"></i> Edit Profil</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $url;?>ganti-password-hotspot"><i class="fa fa-lock fa-fw"></i> Ganti Password Hotspot</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $url;?>ganti-password-civitas"><i class="fa fa-lock fa-fw"></i> Ganti Password Civitas</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -68,7 +79,7 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <form action="<?php echo $url;?>edit-password-hotspot" method="post">
+                    <form action="" method="post">
                         <div class="form-group">
                             <p><?php echo $validasi->errorMessages('password', '<p style="color:red">', '</p>');?></p>
                             <label>Password Baru</label>
