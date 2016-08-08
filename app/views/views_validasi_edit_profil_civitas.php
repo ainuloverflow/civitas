@@ -72,7 +72,7 @@
       <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Edit Profil</h1>
+                    <h1 class="page-header"><?php echo $kontentitle;?></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -83,12 +83,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" form action="<?php echo $url;?>validasi-edit-profil-civitas" method="post">                        
-                                            <input id="id" name="id" value="<?php echo $validasi->value('id');?>" type="text" class="form-control" hidden>
+                                    <form role="form" form action="" method="post">                        
+                                            <input id="id" name="id" value="<?php echo $validasi->value('id');?>" type="text" class="form-control hidden">
                                             
                                             <div class="form-group">
                                              <p><?php echo $validasi->errorMessages('name', '<p style="color:red">', '</p>');?></p>
-                                                <label>Nama Lengkap</label>
+                                                <label>Nama</label>
                                                 <input id="name" name="name" value="<?php echo $validasi->value('name');?>" type="text" class="form-control" placeholder="Nama">
                                             </div>
 

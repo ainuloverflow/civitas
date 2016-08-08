@@ -57,51 +57,54 @@ class Home extends Resources\Controller
         }
     }
     
-     public function profilbaru() {
+     public function validasi_edit_profil_civitas() {
         $ceklogin = $this->session->getValue('isLogin');
         $id = $this->session->getValue('id');
         $name = $this->session->getValue('name');
         $username = $this->session->getValue('username');
-        if($level == 1 & $ceklogin == true) {
+        
+        if($username && $ceklogin == true) {
             if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-            if($this->validasi->validate()){
+                if($this->validasi->validate()){
 
-                $id = $this->post->POST('id', FILTER_SANITIZE_NUMBER_INT);
-                $nama = $this->post->POST('nama',FILTER_SANITIZE_MAGIC_QUOTES);
-                $emailup = $this->post->POST('emailup',FILTER_SANITIZE_MAGIC_QUOTES);
-                $no_telpup = $this->post->POST('no_telpup',FILTER_SANITIZE_MAGIC_QUOTES);
+                    $id = $this->post->POST('id', FILTER_SANITIZE_MAGIC_QUOTES);
+                    $name = $this->post->POST('name',FILTER_SANITIZE_MAGIC_QUOTES);
+                    $email = $this->post->POST('email',FILTER_SANITIZE_EMAIL);
+                    $phone = $this->post->POST('phone',FILTER_SANITIZE_MAGIC_QUOTES);
+                    $address = $this->post->POST('address', FILTER_SANITIZE_MAGIC_QUOTES);
 
-                $numeric = "+$no_telpup";
+                    $editprofil = array(
+                        'name' => $name,
+                        'email' => $email,
+                        'phone' => $phone,
+                        'address' => $address  
+                    );
+                    $where = array('id' => $id);
+                    
+                    $updateprofil = $this->civitas->updateprofil($editprofil, $where);
 
-                $editprofil = array(
-                  'nama' => $nama,
-                  'email' => $emailup,
-                  'no_telp' => $numeric
-                );
-
-                $where = array('id' => $id);
-
-                $updateprofil=$this->administrator->updateprofil($editprofil, $where);
-
-                if($updateprofil){
-                  echo "<script>alert('Profil Berhasil Diubah'); window.location = 'editprofil' </script>";
-                } else {
-                  echo "<script>alert('Profil Gagal Diubah'); window.location = 'editprofil' </script>";
+                    if($updateprofil) {
+                        echo "<script>alert('Profil Berhasil Diubah'); window.location = 'edit-profil-civitas' </script>";
+                    } 
+                    else {
+                        echo "<script>alert('Profil Gagal Diubah'); window.location = 'edit-profil-civitas' </script>";
+                    }
                 }
             }
-          }
-          $this->output('edit_profilvalid', array(
+            $data = array (
                 'validasi' => $this->validasi, 
-                'uname' => $this->session->getValue('username'))
-          );
+                'url'  => $this->uri->baseUri,
+                'titlebar' => 'Selamat Datang di Web Civitas JTIF',
+                'navbar' => 'Edit Profil Civitas',
+                'name' => $name,
+                'username' => $username,
+                'kontentitle' => 'Edit Profil Civitas'      
+            );
+            $this->output('views_validasi_edit_profil_civitas', $data);
         }
-
-      
-      
-      else {
-        $this->redirect('home');
-      }
-    
+        else {
+            $this->redirect('beranda-civitas');
+        } 
     }
     
     public function login() {
@@ -146,46 +149,28 @@ class Home extends Resources\Controller
         $this->output('paduan');
     }
 
-   
+    public function ubah_sandi_hotspot() {
+        $ceklogin = $this->session->getValue('isLogin');
+        $id = $this->session->getValue('id');
+        $name = $this->session->getValue('name');
+        $username = $this->session->getValue('username');
 
-    public function ubahsandi() {
-      
-      $id = $this->session->getValue('id');
-      $ceklogin=$this->session->getValue('isLogin');
-      $level = $this->session->getValue('level');
-
-
-      if($level == 1 & $ceklogin == true) {
-
+        if($username && $ceklogin == true) {
             $data = array(
                 'uname' => $this->session->getValue('username'),
                 'validasi' => $this->validasi
             );
-            $this->output('edit_password', $data);
-      }
-
-      else if($level == 2 & $ceklogin == true) {
+              $this->output('edit_password', $data);
+        }
+        else {
+            $this->redirect('home');
+        }
         
-            $data = array(
-                'uname' => $this->session->getValue('username'),
-                'validasi' => $this->validasi
-            );
-            $this->output('edit_password', $data);
-      }
-
-      else if($level == 3 & $ceklogin == true) {
-
-            $data = array(
-                'uname' => $this->session->getValue('username'),
-                'validasi' => $this->validasi
-            );
-            $this->output('edit_password', $data);
-      }
-      
-      else {
-        $this->redirect('home');
-      }
-    
+        $data = array (
+            'titlebar' => 'Selamat datang di Web Civitas',
+            'url' => $this->uri->baseUri
+        );
+        $this->output('views_login_civitas', $data);
     }
 
     public function sandibaru() {

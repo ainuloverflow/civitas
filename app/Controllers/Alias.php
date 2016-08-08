@@ -24,6 +24,11 @@ class Alias
                 'class' => '\\Controllers\Home',
                 'method' => 'edit_profil_civitas'
             ],
+            
+            'validasi-edit-profil-civitas' => [
+                'class' => '\\Controllers\Home',
+                'method' => 'validasi_edit_profil_civitas'
+            ],
 
             'ganti-password-hotspot' => [
                 'class' => '\\Controllers\Home',
@@ -37,7 +42,7 @@ class Alias
 
         ];
 
-        if( in_array($args[0], ['login', 'logout', 'beranda-civitas', 'edit-profil-civitas', 'ganti-password-hotspot', 'ganti-password-civitas'])){
+        if( in_array($args[0], ['login', 'logout', 'beranda-civitas', 'edit-profil-civitas', 'ganti-password-hotspot', 'ganti-password-civitas', 'validasi-edit-profil-civitas'])){
             try {
                 $route[$args[0]]['class'] = new $route[$args[0]]['class'];
 

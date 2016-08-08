@@ -3,10 +3,6 @@ namespace Models;
 use Resources;
 
 class Validasi extends Resources\Validation {
-    
-    public $checkUser = true;
-    public $checkEmail = true;
-    public $checkNomor = true;
 
     public function __construct()
     {
@@ -18,6 +14,7 @@ class Validasi extends Resources\Validation {
             array(
                 'required' => '%label% tidak boleh kosong', 
                 'email' => '%label% harus berformat email',
+                'numeric' => '%label% harus berformat angka',
                 'min' => '%label% jumlah karakter yang diberikan minimal berjumlah %size%',
                 'max' => '%label% jumlah karakter yang diberikan maksimal berjumlah %size%',
             )
@@ -28,228 +25,64 @@ class Validasi extends Resources\Validation {
     {
         return array(
             
-            
-            'oldpassword' => array(
-                'rules' => array(
-                    'required',
-                    'callback' => 'oldpassword'
-                ),
-                'label' => 'Password Lama'
-            ),
-
-            //=============Validasi Insert==========//
-
-            'username' => array( // Filter Mahasiswa
-                'rules' => array(
-                    'required',
-                    'min' => 9,
-                    'max' => 30,
-                    'callback' => 'usernameExists'
-                ),
-                'label' => 'Username',
-                'filter' => array('trim', 'ucwords')
-            ),
-
-            'usernameup' => array( // Filter Mahasiswa
-                'rules' => array(
-                    'required',
-                    'min' => 9,
-                    'max' => 30,
-                    'callback' => 'usernameExistsup'
-                ),
-                'label' => 'Username',
-                'filter' => array('trim', 'ucwords')
-            ),
-
-
-            'nama' => array( // Filter Nama
-                'rules' => array(
-                    'required',
-                    'min' => 3
-                ),
-                'label' => 'Nama Lengkap'
-            ),
-
-            'type' => array( // Filter Nama
+            'id' => array( // Filter Mahasiswa
                 'rules' => array(
                     'required'
                 ),
-                'label' => 'Tipe user'
+                'label' => 'ID'
             ),
             
-            'value' => array( // Filter Password
-                'rules' => array(
-                    'required',
-                    'min' => 5,
-                    'compare' => 'revalue'
-                ),
-                'label' => 'Password'
-            ),
-
-            'revalue' => array( //Filter Repassword
+            'name' => array( // Filter Nama
                 'rules' => array(
                     'required'
                 ),
-                'label' => 'Retype Password'
+                'label' => 'Nama',
+                'filter' => array('trim')
             ),
-
-            'passinfo' => array( // Filter Password
+            
+            'email' => array( // Filter Nama
                 'rules' => array(
                     'required',
-                    'min' => 5,
-                    'compare' => 'repassinfo'
-                ),
-                'label' => 'Password'
-            ),
-
-            'repassinfo' => array( //Filter Repassword
-                'rules' => array(
-                    'required'
-                ),
-                'label' => 'Retype Password'
-            ),
-
-            'no_telp' => array( //Filter Nomor Telepon
-                'rules' => array(
-                    'required',
-                    'numeric',
-                    'callback' => 'noExists'
-                ),
-                'label' => 'Nomor Handphone'
-            ),
-
-            'email' => array( //Filter Email
-                'rules' => array(
-                    'required',
-                    'min' => 3,
-                    'email',
-                    'callback' => 'emailExists'
+                    'email'
                 ),
                 'label' => 'Email',
-                'filter' => array('trim', 'strtolower')
+                'filter' => array('trim')
             ),
-
-             'no_telpup' => array( //Filter Nomor Telepon
+            
+            'phone' => array( // Filter Nama
                 'rules' => array(
                     'required',
-                    'numeric',
-                    'callback' => 'noExistsup'
+                    'numeric'
                 ),
-                'label' => 'Nomor Handphone'
+                'label' => 'Nomor HP',
+                'filter' => array('trim')
             ),
-
-            'emailup' => array( //Filter Email
+            
+            'address' => array( // Filter Nama
                 'rules' => array(
                     'required',
-                    'min' => 3,
-                    'email',
-                    'callback' => 'emailExistsup'
                 ),
-                'label' => 'Email',
-                'filter' => array('trim', 'strtolower')
+                'label' => 'Alamat',
+                'filter' => array('trim')
+            ),
+            
+            'password' => array( // Filter Password
+                'rules' => array(
+                    'required',
+                    'min' => 8,
+                    'compare' => 'konfirmasi_password'
+                ),
+                'label' => 'Password',
+                'filter' => array('trim')
             ),
 
-            'nama_unit' => array( //Filter Prodi / Jurusan
-                    'rules' => array(
+            'konfirmasi_password' => array( //Filter Repassword
+                'rules' => array(
                     'required'
                 ),
-                'label' => 'Prodi atau Jurusan'
+                'label' => 'Konfirmasi Password',
+                'filter' => array('trim')
             )
         );
-    }
-
-    public function oldpassword($field, $value, $label)
-    {
-        if($hasil = $this->cekmember->getByPassword($value)) {
-            return true;
-        }
-        else {
-            $this->setErrorMessage($field, 'Password lama tidak cocok');
-            return false;
-        }
-    }
-
-    public function usernameExists($field, $value, $label)
-    {
-        if( ! $this->checkUser)
-        return true;
-
-        if( ! $this->cekmember->getByUsername($value))
-        return true;
-       
-        $this->setErrorMessage($field, 'Username sudah ada.');
-       
-        return false;
-    }
-
-    public function emailExists($field, $value, $label)
-    {
-        if( ! $this->checkEmail)
-        return true;
-       
-        if( ! $this->cekmember->getByEmail(strtolower($value)))
-        return true;
-       
-        $this->setErrorMessage($field, 'Email sudah ada.');
-       
-        return false;
-    }
-
-    public function noExists($field, $value, $label)
-    {
-        if( ! $this->checkNomor)
-        return true;
-       
-        if( ! $this->cekmember->getByHP($value))
-        return true;
-       
-        $this->setErrorMessage($field, 'No HP sudah ada.');
-       
-        return false;
-    }
-
-    //===================================================//
-
-    public function usernameExistsup($field, $value, $label)
-    {
-        
-        $this->checkUser = false;
-        if( ! $this->checkUser)
-        return true;
-
-        if( ! $this->cekmember->getByUsername($value))
-        return true;
-       
-        $this->setErrorMessage($field, 'Username sudah ada.');
-       
-        return false;
-    }
-
-    public function emailExistsup($field, $value, $label)
-    {
-        $this->checkEmail = false;
-        if( ! $this->checkEmail )
-        return true;
-       
-        if( ! $this->cekmember->getByEmail(strtolower($value)))
-        return true;
-       
-        $this->setErrorMessage($field, 'Email sudah ada.');
-       
-        return false;
-    }
-
-    public function noExistsup($field, $value, $label)
-    {
-        $this->checkNomor = false;
-        if( ! $this->checkNomor)
-        return true;
-       
-        if( ! $this->cekmember->getByHP($value))
-        return true;
-       
-        $this->setErrorMessage($field, 'No HP sudah ada.');
-       
-        return false;
     }
 }

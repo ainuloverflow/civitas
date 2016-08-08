@@ -35,7 +35,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><span> <?php echo $name;?> </span> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><span> <?php echo $name;?> (<?php echo $username;?>) </span> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $url;?>logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -86,23 +86,23 @@
                                     <form role="form" form action="<?php echo $url;?>validasi-edit-profil-civitas" method="post">                        
                                             <input id="id" name="id" value="<?php echo $edit_profil->id;?>" type="hidden">
                                             <div class="form-group">
-                                                <label>Nama Lengkap</label>
-                                                <input id="nama" name="name " value="<?php echo $edit_profil->name;?>" type="text" class="form-control" placeholder="Nama Lengkap">
+                                                <label>Nama</label>
+                                                <input id="name" name="name" value="<?php echo $edit_profil->name;?>" type="text" class="form-control" placeholder="Nama">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input id="emailup" name="email" value="<?php echo $edit_profil->email;?>" type="text" class="form-control" placeholder="Email">
+                                                <input id="email" name="email" value="<?php echo $edit_profil->email;?>" type="text" class="form-control" placeholder="Email">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Nomor HP</label>
-                                                <input id="no_telpup" name="phone" value="<?php echo $edit_profil->phone;?>" type="text" class="form-control" placeholder="Nomor HP">
+                                                <input id="phone" name="phone" value="<?php echo $edit_profil->phone;?>" type="text" class="form-control" placeholder="Nomor HP">
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label>Alamat</label>
-                                                <input id="no_telpup" name="phone" value="<?php echo $edit_profil->address;?>" type="text" class="form-control" placeholder="Nomor HP">
+                                                <input id="address" name="address" value="<?php echo $edit_profil->address;?>" type="text" class="form-control" placeholder="Alamat">
                                             </div>
                                             
                                         <button type="submit" value="Submit" class="btn btn-primary">Submit</button>

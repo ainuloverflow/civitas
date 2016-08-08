@@ -8,14 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Welcome</title>
+    <title><?php echo $titlebar;?></title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo $this->uri->baseUri;?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<?php echo $this->uri->baseUri;?>assets/dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="<?php echo $this->uri->baseUri;?>assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $url;?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $url;?>assets/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $url;?>assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="wrapper">
@@ -29,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo $this->uri->baseUri;?>home/ubahsandi">Ganti Password</a>
+                <a class="navbar-brand" href="<?php echo $url;?>ubah-password-hotspot"><?php echo $navbar;?></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -37,10 +34,10 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><span> <?php echo $uname;?> </span> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><span> <?php echo $name;?> (<?php echo $username;?>);?> </span> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo $this->uri->baseUri;?>home/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?php echo $url;?>logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -52,15 +49,7 @@
              <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="<?php echo $this->uri->baseUri;?>home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->uri->baseUri;?>home/editprofil"><i class="fa fa-user fa-fw"></i> Edit Profil</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->uri->baseUri;?>home/ubahsandi"><i class="fa fa-lock fa-fw"></i> Ganti Password</a>
-                        </li>
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -71,51 +60,36 @@
       <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Ganti Password</h1>
+                    <h1 class="page-header"><?php echo $kontentitle;?></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <form action="<?php echo $this->uri->baseUri;?>home/sandibaru" method="post">
-                                          
-                                        <div class="form-group">
-                                            <p><?php echo $validasi->errorMessages('oldpassword', '<p style="color:red">', '</p>');?></p>
-                                            <label>Password Lama</label>
-                                            <input id="oldpassword" name="oldpassword" value="<?php echo $validasi->value('oldpassword');?>" type="password" class="form-control" placeholder="Password Lama">
-                                        </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <form action="<?php echo $url;?>edit-password-hotspot" method="post">
+                        <div class="form-group">
+                            <p><?php echo $validasi->errorMessages('password', '<p style="color:red">', '</p>');?></p>
+                            <label>Password Baru</label>
+                            <input id="password" name="password" value="<?php echo $validasi->value('password');?>" type="password" class="form-control" placeholder="Password Baru">
+                        </div>
 
-                                        <div class="form-group">
-                                            <p><?php echo $validasi->errorMessages('passinfo', '<p style="color:red">', '</p>');?></p>
-                                            <label>Password Baru</label>
-                                            <input id="passinfo" name="passinfo" value="<?php echo $validasi->value('passinfo');?>" type="password" class="form-control" placeholder="Password Baru">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p><?php echo $validasi->errorMessages('repassinfo', '<p style="color:red">', '</p>');?></p>
-                                            <label>Konfirmasi Password Baru</label>
-                                            <input id="repassinfo" name="repassinfo" value="<?php echo $validasi->value('repassinfo');?>" type="password" class="form-control" placeholder="Konfirmasi Password Baru">
-                                        </div>        
-                                
-                                        <button type="submit" value="Submit" class="btn btn-primary">Simpan</button>
-                                        <a href="<?php echo $this->uri->baseUri;?>home" class="btn btn-info">Batal</a>
-                                    </form>
-                                </div>
-        
-                            </div>
+                        <div class="form-group">
+                            <p><?php echo $validasi->errorMessages('konfirmasi_password', '<p style="color:red">', '</p>');?></p>
+                            <label>Konfirmasi Password Baru</label>
+                            <input id="konfirmasi_password" name="konfirmasi_password" value="<?php echo $validasi->value('konfirmasi_password');?>" type="password" class="form-control" placeholder="Konfirmasi Password Baru">
+                        </div>        
+                        <button type="submit" value="Submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
     </div>
 </div>
-
-    <!-- jQuery -->
-    <script src="<?php echo $this->uri->baseUri;?>assets/bower_components/jquery/dist/jquery.js"></script>
-    
-    <script src="<?php echo $this->uri->baseUri;?>assets/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo $this->uri->baseUri;?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="<?php echo $this->uri->baseUri;?>assets/dist/js/sb-admin-2.js"></script>
+    <script src="<?php echo $url;?>assets/bower_components/jquery/dist/jquery.js"></script>
+    <script src="<?php echo $url;?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo $url;?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo $url;?>assets/dist/js/sb-admin-2.js"></script>
 </body>
 
 </html>
