@@ -87,9 +87,9 @@
     <script src="<?php echo $url;?>assets/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo $url;?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="<?php echo $url;?>assets/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-    <script src="<?php echo $url;?>assets/bower_components/raphael/raphael-min.js"></script>
+<!--    <script src="<?php echo $url;?>assets/bower_components/raphael/raphael-min.js"></script>
     <script src="<?php echo $url;?>assets/bower_components/morrisjs/morris.min.js"></script>
-    <script src="<?php echo $url;?>assets/js/morris-data.js"></script>
+    <script src="<?php echo $url;?>assets/js/morris-data.js"></script>-->
     <script src="<?php echo $url;?>assets/dist/js/sb-admin-2.js"></script>
     
 </body>

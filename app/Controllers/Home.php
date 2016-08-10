@@ -2,8 +2,7 @@
 namespace Controllers;
 use Resources, Models, Library;
 
-class Home extends Resources\Controller
-{    
+class Home extends Resources\Controller {    
     public function __construct(){
         parent::__construct();
         $this->post = new Resources\Request;
@@ -145,8 +144,8 @@ class Home extends Resources\Controller
         $this->session->destroy();
         $this->redirect('login');
     }
-    public function paduan_web_civitas() {
-        $this->output('paduan');
+    public function pedoman_web_civitas() {
+        $this->output('views_pedoman_civitas');
     }
 
     public function ganti_password_hotspot() {
@@ -157,26 +156,29 @@ class Home extends Resources\Controller
 
         if($username && $ceklogin == true) {
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if($this->validasi->validate()){
+                $password_civitas = $this->post->POST('password_civitas', FILTER_SANITIZE_MAGIC_QUOTES);
                 $password = $this->post->POST('password', FILTER_SANITIZE_MAGIC_QUOTES);
                 $konfimasi_password = $this->post->POST('konfirmasi_password', FILTER_SANITIZE_MAGIC_QUOTES);    
-                
-                $value = array ( 'password'=>md5($password));
-                $where = array ( 'id' => $id );
-                
-                $update_password_hotspot = $this->civitas->update_password_hotspot($value, $where);
-               
-                if($update_password_hotspot) {
-                    echo "<script>alert('Password Hotspot berhasil di ubah'); window.location = 'edit-password-hotspot' </script>";
+
+                $value_permanent_users = array ('password'=>md5($password));
+                $where_id_permanent_users = array ('id' => $id );
+                       
+                $update_password_permanent_user = $this->civitas->update_password_permanent_users($value_permanent_users, $where_id_permanent_users);
+                $update_radcheck = $this->civitas->update_password_hotspot($username, $password);
+
+                if($update_password_permanent_user && $update_radcheck) {
+                    echo "<script>alert('Password Hotspot berhasil di ubah'); window.location = 'ganti-password-hotspot' </script>";
                 }
                 else {
-                    echo "<script>alert('Password Hotspot gagal di ubah'); window.location = 'edit-password-hotspot' </script>";
+                    echo "<script>alert('Password Hotspot gagal di ubah'); window.location = 'ganti-password-hotspot' </script>";
+                }
                 }
             }
         }
         else {
             $this->redirect('login');
         }
-        
         $data = array (
             'validasi' => $this->validasi,
             'url'  => $this->uri->baseUri,
@@ -188,88 +190,46 @@ class Home extends Resources\Controller
         );
         $this->output('views_edit_password_hotspot', $data);
     }
+    
+    public function ganti_password_civitas() {
+        $ceklogin = $this->session->getValue('isLogin');
+        $id = $this->session->getValue('id');
+        $name = $this->session->getValue('name');
+        $username = $this->session->getValue('username');
 
-    public function sandibaru() {
-      
-      $id = $this->session->getValue('id');
-      $ceklogin=$this->session->getValue('isLogin');
-      $level = $this->session->getValue('level');
+        if($username && $ceklogin == true) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if($this->validasi->validate()){
+                $password_civitas_lama = $this->post->POST('password_civitas_lama', FILTER_SANITIZE_MAGIC_QUOTES);
+                $password_civitas_baru = $this->post->POST('password_civitas_baru', FILTER_SANITIZE_MAGIC_QUOTES);
+                $konfimasi_password_civitas_baru = $this->post->POST('konfimasi_password_civitas_baru', FILTER_SANITIZE_MAGIC_QUOTES);    
 
-      if($level == 1 & $ceklogin == true) {
-        if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-            
-            if($this->validasi->validate()){
-                 
-                $oldpassword=$this->post->POST('oldpassword',FILTER_SANITIZE_MAGIC_QUOTES);
-                $passinfo=md5($this->post->POST('passinfo',FILTER_SANITIZE_MAGIC_QUOTES));
-                
-                $editpass = array('passinfo' => $passinfo);
-                $where = array('id' => $id);
-                
-                $this->administrator->edituser($editpass, $where);
-                echo "<script>alert('Password Berhasil Diubah'); window.location = 'ubahsandi' </script>";
-                
+                $value_permanent_users = array ('password_civitas'=>md5($password_civitas_baru));
+                $where_id_permanent_users = array ('id' => $id );
+                       
+                $update_password_civitas = $this->civitas->update_password_civitas($value_permanent_users, $where_id_permanent_users);
+
+                if($update_password_civitas) {
+                    echo "<script>alert('Password Civitas berhasil di ubah'); window.location = 'ganti-password-civitas' </script>";
+                }
+                else {
+                    echo "<script>alert('Password Civitas gagal di ubah'); window.location = 'ganti-password-civitas' </script>";
+                }
+                }
             }
-
-            $this->output('edit_password', array(
-                'validasi' => $this->validasi, 
-                'uname' => $this->session->getValue('username'))
-            );
         }
         else {
-            $this->redirect('home'); 
+            $this->redirect('login');
         }
-      }
-
-      else if($level == 2 & $ceklogin == true) {
-        if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-            
-            if($this->validasi->validate()){
-                 
-                $oldpassword=$this->post->POST('oldpassword',FILTER_SANITIZE_MAGIC_QUOTES);
-                $passinfo=md5($this->post->POST('passinfo',FILTER_SANITIZE_MAGIC_QUOTES));
-                
-                $editpass = array('passinfo' => $passinfo);
-                $where = array('id' => $id);
-                
-                $this->manajemen_adminfakultas->edituser($editpass, $where);
-                echo "<script>alert('Password Berhasil Diubah'); window.location = 'ubahsandi' </script>";
-            }
-
-            $this->output('edit_password', array(
-                'validasi' => $this->validasi, 
-                'uname' => $this->session->getValue('username'))
-            );
-        }
-        else {
-            $this->redirect('home');
-        }
-      }
-          
-      else if($level == 3 & $ceklogin == true) {        
-        if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-            
-            if($this->validasi->validate()){
-                 
-                $oldpassword=$this->post->POST('oldpassword',FILTER_SANITIZE_MAGIC_QUOTES);
-                $passinfo=md5($this->post->POST('passinfo',FILTER_SANITIZE_MAGIC_QUOTES));
-                
-                $editpass = array('passinfo' => $passinfo);
-                $where = array('id' => $id);
-                
-                $this->manajemen_member->edituser($editpass, $where);
-                echo "<script>alert('Password Berhasil Diubah'); window.location = 'ubahsandi' </script>";
-                
-            }
-
-            $this->output('edit_password', array(
-                'validasi' => $this->validasi, 
-                'uname' => $this->session->getValue('username'))
-            );
-        }
-        else {
-            $this->redirect('home'); 
-        }
-      }
+        $data = array (
+            'validasi' => $this->validasi,
+            'url'  => $this->uri->baseUri,
+            'titlebar' => 'Selamat Datang di Web Civitas JTIF',
+            'navbar' => 'Ganti Password Civitas',
+            'name' => $name,
+            'username' => $username,
+            'kontentitle' => 'Ganti Password Civitas'     
+        );
+        $this->output('views_edit_password_civitas', $data);
     }
 }

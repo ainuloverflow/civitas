@@ -1,5 +1,6 @@
 <?php
 namespace Controllers;
+use Resources, Library;
 class Alias
 {
     public function index() {
@@ -37,12 +38,17 @@ class Alias
 
             'ganti-password-civitas' => [
                 'class' => '\\Controllers\Home',
-                'method' => 'ganti_password_hotspot'
+                'method' => 'ganti_password_civitas'
+            ],
+            
+            'pedoman-web-civitas' => [
+                'class' => '\\Controllers\Home',
+                'method' => 'pedoman_web_civitas'
             ],
 
         ];
 
-        if( in_array($args[0], ['login', 'logout', 'beranda-civitas', 'edit-profil-civitas', 'ganti-password-hotspot', 'ganti-password-civitas', 'validasi-edit-profil-civitas'])){
+        if( in_array($args[0], ['login', 'logout', 'beranda-civitas', 'edit-profil-civitas', 'ganti-password-hotspot', 'ganti-password-civitas', 'validasi-edit-profil-civitas', 'pedoman-web-civitas'])){
             try {
                 $route[$args[0]]['class'] = new $route[$args[0]]['class'];
 
@@ -52,7 +58,8 @@ class Alias
                 );
             }
             catch(Exception $e) {    
-                throw new \Resources\HttpException('Page not found!');
+                //throw new \Resources\HttpException('Page not found!');
+                $this->output('errors/404');
             }
         }
     }

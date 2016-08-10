@@ -8,14 +8,16 @@ class Validasi extends Resources\Validation {
     {
         parent::__construct();
 
-        $this->cekmember = new \Models\Manajemen_member;
+        $this->civitas = new Civitas;
+        $this->session = new Resources\Session();
         
         $this->setRuleErrorMessages(
             array(
+                'compare' => '%label% tidak sama dengan %comparatorLabel%',
                 'required' => '%label% tidak boleh kosong', 
                 'email' => '%label% harus berformat email',
                 'numeric' => '%label% harus berformat angka',
-                'min' => '%label% jumlah karakter yang diberikan minimal berjumlah %size%',
+                'min' => 'Jumlah karakter %label% yang diberikan minimal berjumlah %size%',
                 'max' => '%label% jumlah karakter yang diberikan maksimal berjumlah %size%',
             )
         );  
@@ -25,14 +27,14 @@ class Validasi extends Resources\Validation {
     {
         return array(
             
-            'id' => array( // Filter Mahasiswa
+            'id' => array(
                 'rules' => array(
                     'required'
                 ),
                 'label' => 'ID'
             ),
             
-            'name' => array( // Filter Nama
+            'name' => array(
                 'rules' => array(
                     'required'
                 ),
@@ -40,7 +42,7 @@ class Validasi extends Resources\Validation {
                 'filter' => array('trim')
             ),
             
-            'email' => array( // Filter Nama
+            'email' => array(
                 'rules' => array(
                     'required',
                     'email'
@@ -49,7 +51,7 @@ class Validasi extends Resources\Validation {
                 'filter' => array('trim')
             ),
             
-            'phone' => array( // Filter Nama
+            'phone' => array(
                 'rules' => array(
                     'required',
                     'numeric'
@@ -58,7 +60,7 @@ class Validasi extends Resources\Validation {
                 'filter' => array('trim')
             ),
             
-            'address' => array( // Filter Nama
+            'address' => array(
                 'rules' => array(
                     'required',
                 ),
@@ -66,23 +68,71 @@ class Validasi extends Resources\Validation {
                 'filter' => array('trim')
             ),
             
-            'password' => array( // Filter Password
+            'password_civitas' => array(
+                'rules' => array(
+                    'required',
+                    'callback' => 'cek_password_civitas'
+                ),
+                'label' => 'Password Civitas',
+                'filter' => array('trim')
+            ),
+            
+            'password' => array(
                 'rules' => array(
                     'required',
                     'min' => 8,
-                    'compare' => 'konfirmasi_password'
                 ),
                 'label' => 'Password',
                 'filter' => array('trim')
             ),
 
-            'konfirmasi_password' => array( //Filter Repassword
+            'konfirmasi_password' => array(
                 'rules' => array(
-                    'required'
+                    'required',
+                    'compare' => 'password'
                 ),
                 'label' => 'Konfirmasi Password',
                 'filter' => array('trim')
+            ),
+            
+            'password_civitas_lama' => array(
+                'rules' => array(
+                    'required',
+                    'callback' => 'cek_password_civitas'
+                ),
+                'label' => 'Password Civitas Lama',
+                'filter' => array('trim')
+            ),
+            
+            'password_civitas_baru' => array(
+                'rules' => array(
+                    'required',
+                    'min' => 8,
+                ),
+                'label' => 'Password Civitas Baru',
+                'filter' => array('trim')
+            ),
+                
+            'konfimasi_password_civitas_baru' => array(
+                'rules' => array(
+                    'required',
+                    'compare' => 'password_civitas_baru'
+                ),
+                'label' => 'Konfirmasi Password Civitas Baru',
+                'filter' => array('trim')
             )
         );
+    }
+    public function cek_password_civitas($field, $value, $label)
+    {
+        $id = $this->session->getValue('id');
+        $username = $this->session->getValue('username');
+        if($hasil = $this->civitas->cek_pass_civitas(md5($value), $id, $username)) {
+            return true;
+        }
+        else {
+            $this->setErrorMessage($field, 'Password Civitas yang anda masukan tidak cocok dengan '.$label.' Anda saat ini');
+            return false;
+        }
     }
 }

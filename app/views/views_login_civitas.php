@@ -49,8 +49,8 @@
                                        
 						<div class="form-group ">
                                                     <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block login-button">Masuk</button>
-                                                    <a href="<?php echo $url;?>petunjuk-web-civitas" class="btn btn-danger btn-lg btn-block login-button">Petunjuk Web Civitas JTIF</a>
-                                                    <a href="hotspotjtif.unesa.ac.id" class="btn btn-success btn-lg btn-block login-button">Kembali ke Login Hotspot JTIF</a>
+                                                    <a href="<?php echo $url;?>pedoman-web-civitas" class="btn btn-danger btn-lg btn-block login-button">Pedoman Web Civitas JTIF</a>
+                                                    <a href="http://hotspotjtif.unesa.ac.id" class="btn btn-success btn-lg btn-block login-button">Kembali ke Login Hotspot JTIF</a>
 						</div>
 					</form>
 				</div>

@@ -79,24 +79,24 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <form action="<?php echo $url;?>ganti-password-hotspot" method="post">
+                    <form action="<?php echo $url;?>ganti-password-civitas" method="post">
                         
                         <div class="form-group">
-                            <p><?php echo $validasi->errorMessages('password_civitas', '<p style="color:red">', '</p>');?></p>
-                            <label>Masukan Password Civitas</label>
-                            <input id="password_civitas" name="password_civitas" value="<?php echo $validasi->value('password_civitas');?>" type="password" class="form-control" placeholder="Password Civitas">
+                            <p><?php echo $validasi->errorMessages('password_civitas_lama', '<p style="color:red">', '</p>');?></p>
+                            <label>Masukan Password Civitas Lama</label>
+                            <input id="password_civitas_lama" name="password_civitas_lama" value="<?php echo $validasi->value('password_civitas_lama');?>" type="password" class="form-control" placeholder="Password Civitas Lama">
                         </div>
                         
                         <div class="form-group">
-                            <p><?php echo $validasi->errorMessages('password', '<p style="color:red">', '</p>');?></p>
-                            <label>Password Hotspot Baru</label>
-                            <input id="password" name="password" value="<?php echo $validasi->value('password');?>" type="password" class="form-control" placeholder="Password Baru Hotspot">
+                            <p><?php echo $validasi->errorMessages('password_civitas_baru', '<p style="color:red">', '</p>');?></p>
+                            <label>Password Civitas Baru</label>
+                            <input id="password_civitas_baru" name="password_civitas_baru" value="<?php echo $validasi->value('password');?>" type="password" class="form-control" placeholder="Password Civitas Baru">
                         </div>
 
                         <div class="form-group">
-                            <p><?php echo $validasi->errorMessages('konfirmasi_password', '<p style="color:red">', '</p>');?></p>
-                            <label>Konfirmasi Password Hotspot Baru</label>
-                            <input id="konfirmasi_password" name="konfirmasi_password" value="<?php echo $validasi->value('konfirmasi_password');?>" type="password" class="form-control" placeholder="Konfirmasi Password Baru Hotspot">
+                            <p><?php echo $validasi->errorMessages('konfimasi_password_civitas_baru', '<p style="color:red">', '</p>');?></p>
+                            <label>Konfirmasi Password Civitas Baru</label>
+                            <input id="konfimasi_password_civitas_baru" name="konfimasi_password_civitas_baru" value="<?php echo $validasi->value('konfimasi_password_civitas_baru');?>" type="password" class="form-control" placeholder="Konfirmasi Password Civitas Baru">
                         </div>        
                         <button type="submit" value="Submit" class="btn btn-primary">Simpan</button>
                     </form>
