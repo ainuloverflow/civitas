@@ -1,6 +1,7 @@
+<body style="background-color:#E74C3C">
 <div class="content">
 <div id="feature" class="main">
-<h3>Pedoman Mengakses Web Civitas JTIF UNESA</h3>
+    <h3 style="text-align: center;">Pedoman Mengakses Web Civitas JTIF UNESA</h3>
 <ul>
     
 <li>
@@ -29,3 +30,4 @@ Jika cara pertama dan kedua masih belum bisa segera kontak teknisi jaringan JTIF
 </ul>
 </div>
 </div>
+</body>

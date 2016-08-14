@@ -6,10 +6,10 @@
  * jQuery-like functions for manipulating the DOM
  */
 import {
-  hasClass, addClass, removeClass, 
-  escapeHtml, 
-  _show, show, _hide, hide, 
-  isDescendant, 
+  hasClass, addClass, removeClass,
+  escapeHtml,
+  _show, show, _hide, hide,
+  isDescendant,
   getTopMargin,
   fadeIn, fadeOut,
   fireClick,
@@ -65,7 +65,7 @@ var lastFocusedButton;
  */
 var sweetAlert, swal;
 
-sweetAlert = swal = function() {
+export default sweetAlert = swal = function() {
   var customizations = arguments[0];
 
   addClass(document.body, 'stop-scrolling');
@@ -127,13 +127,13 @@ sweetAlert = swal = function() {
 
   setParameters(params);
   fixVerticalPosition();
-  openModal();
+  openModal(arguments[1]);
 
   // Modal interactions
   var modal = getModal();
 
 
-  /* 
+  /*
    * Make sure all modal buttons respond to all events
    */
   var $buttons = modal.querySelectorAll('button');
@@ -166,6 +166,9 @@ sweetAlert = swal = function() {
       }
     }, 0);
   };
+  
+  // Show alert with enabled buttons always
+  swal.enableButtons();
 };
 
 
@@ -215,6 +218,12 @@ sweetAlert.close = swal.close = function() {
   removeClass($warningIcon.querySelector('.sa-body'), 'pulseWarningIns');
   removeClass($warningIcon.querySelector('.sa-dot'), 'pulseWarningIns');
 
+  // Reset custom class (delay so that UI changes aren't visible)
+  setTimeout(function() {
+    var customClass = modal.getAttribute('data-custom-class');
+    removeClass(modal, customClass);
+  }, 300);
+
   // Make page scrollable again
   removeClass(document.body, 'stop-scrolling');
 
@@ -245,6 +254,10 @@ sweetAlert.showInputError = swal.showInputError = function(errorMessage) {
 
   $errorContainer.querySelector('p').innerHTML = errorMessage;
 
+  setTimeout(function() {
+    sweetAlert.enableButtons();
+  }, 1);
+
   modal.querySelector('input').focus();
 };
 
@@ -267,17 +280,32 @@ sweetAlert.resetInputError = swal.resetInputError = function(event) {
   removeClass($errorContainer, 'show');
 };
 
-
+/*
+ * Disable confirm and cancel buttons
+ */
+sweetAlert.disableButtons = swal.disableButtons = function(event) {
+  var modal = getModal();
+  var $confirmButton = modal.querySelector('button.confirm');
+  var $cancelButton = modal.querySelector('button.cancel');
+  $confirmButton.disabled = true;
+  $cancelButton.disabled = true;
+};
 
 /*
- * Use SweetAlert with RequireJS
+ * Enable confirm and cancel buttons
  */
-if (typeof define === 'function' && define.amd) {
-  define(function () {
-    return sweetAlert;
-  });
-} else if (typeof window !== 'undefined') {
+sweetAlert.enableButtons = swal.enableButtons = function(event) {
+  var modal = getModal();
+  var $confirmButton = modal.querySelector('button.confirm');
+  var $cancelButton = modal.querySelector('button.cancel');
+  $confirmButton.disabled = false;
+  $cancelButton.disabled = false;
+};
+
+if (typeof window !== 'undefined') {
+  // The 'handle-click' module requires
+  // that 'sweetAlert' was set as global.
   window.sweetAlert = window.swal = sweetAlert;
-} else if (typeof module !== 'undefined' && module.exports) {
-  module.exports = sweetAlert;
+} else {
+  logStr('SweetAlert is a frontend module!');
 }

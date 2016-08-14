@@ -10,6 +10,9 @@
         <!-- Google Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+        <script src="<?php echo $url;?>assets/sweet/dist/sweetalert.min.js"></script> 
+        <link rel="stylesheet" type="text/css" href="<?php echo $url;?>assets/sweet/dist/sweetalert.css">
+        
         <title><?php echo $titlebar;?></title>
 	</head>
 	<body>
@@ -28,7 +31,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Masukan NIP/NIM Anda" required/>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Masukan NIP/NIM Anda" />
 								</div>
 							</div>
 						</div>
@@ -38,7 +41,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                                                        <input type="password" class="form-control" name="password" id="password"  placeholder="Masukan Password Anda" required/>
+                                                                        <input type="password" class="form-control" name="password" id="password"  placeholder="Masukan Password Anda" />
 								</div>
 							</div>
                                                 </div>
@@ -49,13 +52,32 @@
                                        
 						<div class="form-group ">
                                                     <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block login-button">Masuk</button>
-                                                    <a href="<?php echo $url;?>pedoman-web-civitas" class="btn btn-danger btn-lg btn-block login-button">Pedoman Web Civitas JTIF</a>
+                                                    <button id="pedoman" class="btn btn-danger btn-lg btn-block">Pedoman Web Civitas JTIF</button>
                                                     <a href="http://hotspotjtif.unesa.ac.id" class="btn btn-success btn-lg btn-block login-button">Kembali ke Login Hotspot JTIF</a>
 						</div>
 					</form>
+                                    
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="<?php echo $url;?>assets/bootstrap/js/bootstrap.js"></script>
         </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $url;?>assets/bootstrap/js/bootstrap.js"></script>
+
+<script>
+    $("#pedoman").click(function(e){
+        e.preventDefault();
+         swal({
+             title: "<small>Pedoman Mengakses Web Civitas JTIF UNESA</small>",
+             text: "Merupakan sistem informasi yang ditujukan kepada seluruh Anggota civitas JTIF untuk mengelolah informasi data pribadi yang berhubungan\n\
+dengan akses hotspot dilingkup civitas JTIF UNESA.\n\
+Saat pertama kali Anda mengakses Web Civitas JTIF, isikan <strong>username</strong> dan <strong>password</strong> dengan <strong>NIP/NIM</strong> Anda.\n\
+Setelah Anda berhasil masuk kedalam beranda civitas segera ganti password civitas Anda di menu <strong>Ganti Password Civitas</strong> untuk keamanan akun Anda.\n\n\n\
+Pastikan terlebih dahulu pengisian <strong>Username</strong> dan <strong>Password</strong> Anda sudah benar.\n\
+Saat dirasa masih belum bisa Anda dapat menggunakan halaman <strong>Reset password civitas</strong>.\n\
+Jika cara pertama dan kedua masih belum bisa segera kontak teknisi jaringan JTIF setempat.",
+             html: true
+         });
+    });
+</script>

@@ -1,3 +1,8 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 var defaultParams = {
   title: '',
   text: '',
@@ -23,4 +28,5 @@ var defaultParams = {
   showLoaderOnConfirm: false
 };
 
-export default defaultParams;
+exports['default'] = defaultParams;
+module.exports = exports['default'];

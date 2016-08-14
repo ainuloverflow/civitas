@@ -80,7 +80,14 @@
                 </div>
             </div>
             <!-- baris info  -->
-          
+            <div class="alert alert-info">
+                <h3>Apa saja yang dapat anda lakukan di <strong>Beranda Civitas JTIF UNESA</strong></h3>
+                <ul>
+                    <li><p>Anda dapat merubah data profil, bila data profil anda berubah sewaktu-waktu untuk keperluan reset password civitas jika lupa dimenu <strong>Edit Profil.</strong>.</p></li>
+                    <li><p>Anda dapat merubah password hotspot anda dimenu <strong>Ganti Password Hotspot.</strong></p></li>
+                    <li><p>Anda dapat merubah passowrd civitas anda dimenu <strong>Ganti Password Hotspot.</strong></p></li>
+                </ul>
+            </div>
             <!-- end baris info-->
         </div>
     </div>
